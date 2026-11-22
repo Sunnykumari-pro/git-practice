@@ -48,7 +48,6 @@ pipeline {
                     echo 'Testing Successful'
                 }
             }
-        }
 
             stage('Use Credential') {
                 steps {
