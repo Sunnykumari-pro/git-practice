@@ -80,3 +80,4 @@ pipeline {
               echo 'pipeline exucation finished'
           }
        }
+    }
