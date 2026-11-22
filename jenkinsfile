@@ -1,5 +1,18 @@
 pipeline {
     agent any
+parameters {
+    string(
+        name: 'APP_VERSION',
+        defaultValue: '1.0',
+        description: 'Enter application version'
+    )
+
+    choice(
+        name: 'DEPLOY_ENV',
+        choices: ['dev', 'test', 'prod'],
+        description: 'Select deployment environment'
+    )
+}
 
 environment {
     APP_NAME = 'Chahat-App'
