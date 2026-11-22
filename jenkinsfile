@@ -1,10 +1,16 @@
 pipeline {
     agent any
 
+environment {
+    APP_NAME = 'Chahat-App'
+    ENV = 'dev'
+
+}
     stages {
         stage('Hello') {
             steps {
-                echo 'Hello Chahat!'
+                echo "Application: ${APP_NAME}"
+                echo "Environment: ${ENV}" 
             }
         }
 
