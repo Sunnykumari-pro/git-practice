@@ -50,6 +50,26 @@ environment {
         }
     }
 
+       stage('Use Credential') {
+           steps {
+               withCredentials([
+                   string(
+                       credentialsId: 'chahat-demo-secret',
+                       variable: 'DEMO_SECRET'
+                   )
+               ]) {
+                   sh '''
+                       if [ -n "$DEMO_SECRET" ]; then
+                           echo "Credential loaded successfully"
+                       else
+                           echo "Credential is empty"
+                           exit 1
+                       fi
+                   '''
+              }
+          }
+      }
+
   post {
       success {
           echo 'pipeline completed successfully'
