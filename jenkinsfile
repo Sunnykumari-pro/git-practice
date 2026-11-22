@@ -36,6 +36,13 @@ environment {
             }
         }
 
+        stage('Show Parameters') {
+            steps {
+                echo "Application Version: ${params.APP_VERSION}"
+                echo "Deployment Environment: ${params.DEPLOY_ENV}"
+            }
+        }
+
         stage('Test') {
             steps {
                 echo 'Testing Successful'
