@@ -11,6 +11,9 @@ environment {
             steps {
                 echo "Application: ${APP_NAME}"
                 echo "Environment: ${ENV}" 
+                echo "Job Name: ${env.JOB_NAME}"
+                echo "Build Number: ${env.BUILD_NUMBER}"
+                echo "Workspace: ${env.WORKSPACE}"
             }
         }
 
