@@ -1,84 +1,84 @@
 pipeline {
     agent any
-parameters {
-    string(
-        name: 'APP_VERSION',
-        defaultValue: '1.0',
-        description: 'Enter application version'
-    )
+    parameters {
+        string(
+            name: 'APP_VERSION',
+            defaultValue: '1.0',
+            description: 'Enter application version'
+        )
 
-    choice(
-        name: 'DEPLOY_ENV',
-        choices: ['dev', 'test', 'prod'],
-        description: 'Select deployment environment'
-    )
-}
-
-environment {
-    APP_NAME = 'Chahat-App'
-    ENV = 'dev'
-
-}
-    stages {
-        stage('Hello') {
-            steps {
-                echo "Application: ${APP_NAME}"
-                echo "Environment: ${ENV}" 
-                echo "Job Name: ${env.JOB_NAME}"
-                echo "Build Number: ${env.BUILD_NUMBER}"
-                echo "Workspace: ${env.WORKSPACE}"
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Build Started'
-            }
-        }
-
-        stage('Show Parameters') {
-            steps {
-                echo "Application Version: ${params.APP_VERSION}"
-                echo "Deployment Environment: ${params.DEPLOY_ENV}"
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing Successful'
-            }
-        }
+        choice(
+            name: 'DEPLOY_ENV',
+            choices: ['dev', 'test', 'prod'],
+            description: 'Select deployment environment'
+        )
     }
 
-        stage('Use Credential') {
-            steps {
-                withCredentials([
-                    string(
-                        credentialsId: 'chahat-demo-secret',
-                        variable: 'DEMO_SECRET'
-                    )
-                ]) {
-                    sh '''
-                        if [ -n "$DEMO_SECRET" ]; then
-                            echo "Credential loaded successfully"
-                        else
-                            echo "Credential is empty"
-                            exit 1
-                        fi
-                    '''
+    environment {
+        APP_NAME = 'Chahat-App'
+        ENV = 'dev'
+
+    }
+        stages {
+            stage('Hello') {
+                steps {
+                    echo "Application: ${APP_NAME}"
+                    echo "Environment: ${ENV}" 
+                    echo "Job Name: ${env.JOB_NAME}"
+                    echo "Build Number: ${env.BUILD_NUMBER}"
+                    echo "Workspace: ${env.WORKSPACE}"
+                }
+            }
+
+            stage('Build') {
+                steps {
+                    echo 'Build Started'
+                }
+            }
+
+            stage('Show Parameters') {
+                steps {
+                    echo "Application Version: ${params.APP_VERSION}"
+                    echo "Deployment Environment: ${params.DEPLOY_ENV}"
+                }
+            }
+
+            stage('Test') {
+                steps {
+                    echo 'Testing Successful'
+                }
+            }
+        }
+
+            stage('Use Credential') {
+                steps {
+                    withCredentials([
+                        string(
+                            credentialsId: 'chahat-demo-secret',
+                            variable: 'DEMO_SECRET'
+                        )
+                    ]) {
+                        sh '''
+                            if [ -n "$DEMO_SECRET" ]; then
+                                echo "Credential loaded successfully"
+                            else
+                                echo "Credential is empty"
+                                exit 1
+                            fi
+                        '''
+                   }
                }
            }
-       }
 
-  post {
-      success {
-          echo 'pipeline completed successfully'
-      }
-      failure {
-          echo 'pipeline failed'
-      }
-      always {
-          echo 'pipeline exucation finished'
-      }
-   }
-}
+      post {
+          success {
+              echo 'pipeline completed successfully'
+          }
+          failure {
+              echo 'pipeline failed'
+          }
+          always {
+              echo 'pipeline exucation finished'
+          }
+       }
+    }
