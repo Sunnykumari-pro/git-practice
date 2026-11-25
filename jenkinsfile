@@ -70,11 +70,13 @@ pipeline {
             }
         }
     }
+
         stage('Docker Build') {
             steps {
                 sh 'docker build -t chahat-app:${BUILD_NUMBER} -t chahat-app:latest .'
             }
         }
+
     post {
         success {
             echo 'Pipeline completed successfully'
